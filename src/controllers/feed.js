@@ -27,7 +27,9 @@ module.exports = {
                     },
                     
                     ],
-                order: [["created_at", "DESC"]]
+                order: [["created_at", "DESC"]],
+                limit: 5,
+                subQuery: false
             });
 
             res.send(feed)
