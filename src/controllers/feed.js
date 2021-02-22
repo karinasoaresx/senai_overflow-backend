@@ -4,9 +4,13 @@ const Question = require("../models/Question");
 
 module.exports = {
     async index(req,res) {
+        const {page} = req.query;
         try {
+
+            const totalQuestion = await Question.count();
+
             const feed = await Question.findAll({
-                attributes: ["id", "title", "description", "image", "gist", "created_at"],
+                attributes: ["id", "title", "description", "image", "gist", "created_at", "StudentId"],
                 include: [
                     {
                         association: "Student",
@@ -28,11 +32,16 @@ module.exports = {
                     
                     ],
                 order: [["created_at", "DESC"]],
-                limit: 5,
-                subQuery: false
+                limit: page ? [(page - 1) * 5, 5] : undefined
             });
 
-            res.send(feed)
+            res.header("X-Total-Count", totalQuestion);
+            res.header("Access-Control-Expose-Headers", "X-Total-Count");
+
+            setTimeout(() => {
+                res.send(feed);
+            }, 1000);
+            
         } catch (error) {
             console.log(error)
             res.status(500).send(error);

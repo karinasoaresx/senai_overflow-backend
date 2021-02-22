@@ -35,6 +35,7 @@ routes.put   ("/students/:id", studentController.update);
 routes.post  ("/students/:id/images", uploadSingleImage, uploadFirebase, studentImagesController.store);
 
 //rotas de perguntas
+routes.get   ("/questions", questionValidators.index, questionController.index);
 routes.post  ("/questions", uploadSingleImage, uploadFirebase, questionValidators.create, questionController.store);
 routes.delete("/questions/:id", questionController.delete);
 routes.put   ("/questions/:id", questionController.update);

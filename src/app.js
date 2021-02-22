@@ -5,6 +5,12 @@ const { errors } = require("celebrate");
 //importa o cors
 const cors = require("cors");
 
+//para configurar p arquivo
+require("dotenv").config();
+
+//mostra o que tem na variavel
+//console.log(process.env.TESTE);
+
 //importa as rotas
 const routes = require("./routes");
 
